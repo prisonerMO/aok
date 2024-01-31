@@ -1,0 +1,49 @@
+{% load django_bootstrap5 %}
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}Arma Osuuskunta{% endblock %}</title>
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <div class="container">
+      <ul class="nav bg-info">
+        <li class="nav-item">
+          <a class="nav-link link-light" href="/">HOME</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-light" href="/members">MEMBERS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-light" href="/news">NEWS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-light" href="/events">EVENTS</a>
+        </li>
+      </ul>
+
+    {% block content %}
+        <h1>Arma Osuuskunta</h1>
+
+        <form action="/url/to/submit/" method="post" class="form">
+          {% csrf_token %}
+      
+
+          {# bootstrap_form form #}
+      
+          {# bootstrap_button button_type="submit" content="OK" #}
+          {# bootstrap_button button_type="reset" content="Cancel" #}
+      </form>
+      
+      FRONTPAGE content
+      {% endblock %}
+    </div>
+<!--    	<script src="index.js"></script>    -->
+  </body>
+</html>

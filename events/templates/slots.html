@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <style>
+        .ordlist {
+            li {
+                margin: 10px 0;
+            }
+        }
+        .tiedtab {
+            margin-left: 20px;
+            width: 380px;
+            text-align: center;
+            border: 1px solid;
+        }
+        .textboxes {
+            float: left;
+            min-width: 30%;
+            max-width: 420px;
+            padding: 20px;
+            border-left: 2px solid;
+        }
+        .rulesbox {
+            float: left;
+            padding: 20px;
+            border-left: 2px solid;
+        }
+        .slotboxes {
+            float: left;
+            min-width: 30%;
+            max-width: 420px;
+        }
+        .slotbox {
+            margin-bottom: 20px;
+            margin-left: 20px;
+            width: 370px;
+            font-size: smaller;
+            border: 1px solid;
+            border-spacing: 0;
+            padding: 0;
+        }
+        .slotbox tr:nth-child(odd) {
+            background-color: #aaaaaa;
+        }
+        .slotbox tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+    </style>
+  </head>
+  <body style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+
+
+    <br><br><br><br><br><br>
+
+
+    <div style="position:absolute; top: 0px; width:100%; text-align:center;background-color: white;">
+        <h1>AOK&nbsp;&nbsp;&nbsp;JOINT&nbsp;&nbsp;&nbsp;OPS
+            <small>
+            <br>{{ event.op_name }}
+            <br>{{ op_date }}&nbsp;&nbsp;&nbsp;{{ op_start }}-{{ event.op_endtime }}
+            <br><small>- {{ event.op_organizer }} -</small>
+            </small>
+        </h1>
+
+        <div class="container" style="position:absolute; top: 0px; text-align: left;">
+        <ul class="nav bg-info">
+            <li class="nav-item">
+                <a class="nav-link link-light" href="#tiedotus">TIEDOTUS</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-light" href="#saannot">SÄÄNNÖT</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-light" href="#tehtava">TEHTÄVÄ</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-light" href="#ilmoittautuminen">ILMOITTAUTUMINEN</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link link-light" href="#kuvat">KUVAT</a>
+            </li>
+        </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="rulesbox" style="width:80%; min-height:auto;">
+            <h2 id="tiedotus">TIEDOTUS</h2>
+        </div>
+        <div class="textboxes">
+            <h3>Aikataulu</h3>
+            <p><strong>Komppanian päällikkö tekee alustavan suunnitelman, jota täydennetään tarvittaessa.</strong><br>
+            Komppanian päällikkö kutsuu tarvittavat henkilöt johtajien käskynjakoon.</p>
+            <table class="tiedtab">
+                <tr>
+                    <th align="right">{{ planstart }} - {{ planend }}</th>
+                    <td>Johtajien käskynjako</td>
+                </tr>
+                <tr>
+                    <th align="right">{{ orderstart }} - {{ orderend }}</th>
+                    <td>Slottaus ja käskynjako</td>
+                </tr>
+                <tr>
+                    <th align="right">{{ orderend }} - {{ event.op_endtime }}</th>
+                    <td>Tehtävän suoritus (arvio)</td>
+                </tr>
+            </table>
+            <br>
+        </div>
+        <div class="textboxes">
+            <h3>Palvelintiedot</h3>
+            <table class="tiedtab">
+                <tr>
+                    <td></td>
+                    <th>osoite</th>
+                    <th align="right">portti</th>
+                    <th>salasana</th>
+                </tr>
+                <tr>
+                    <th>TS3</th>
+                    <td>{{ event.server_tsaddress }}</td>
+                    <td align="right">{{ event.server_tsport }}</td>
+                    <td>{{ event.server_tspwd }}</td>
+                </tr>
+                <tr>
+                    <th>Arma3</th>
+                    <td>{{ event.server_a3address }}</td>
+                    <td align="right">{{ event.server_a3port }}</td>
+                    <td>{{ event.server_a3pwd }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="textboxes">
+            <h3 align="left">Modit / DLC</h3>
+            <table class="tiedtab">
+                <tr>
+                    <th>Preset</th>
+                    <td><a href="#">TODO:LINK</a></td>
+                </tr>
+                <tr>
+                    <th>DLC:</th>
+                    <td>EI</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    
+    {% if event.op_rules %}
+    <div class="rulesbox">
+        <h2 id="saannot">SÄÄNNÖT</h2>
+        {{ event.op_rules |safe }}
+    </div>
+    {% endif %}
+
+
+    <div class="container">
+        {% if event.op_name or event.op_map %}
+        <div class="rulesbox" style="width:80%; min-height:auto;">
+            <h2 id="tehtava">TEHTÄVÄ</h2>
+            <table>
+                <tr>
+                    <th align="right">Tehtävän nimi:</th>
+                    <td>{{ event.op_name }}</td>
+                </tr>
+                <tr>
+                    <th align="right">Kartta:</th>
+                    <td>{{ event.op_map }}</td>
+                </tr>
+            </table>
+        </div>
+        {% endif %}
+
+        {% if event.op_situation %}
+        <div class="rulesbox" style="width:80%; min-height:auto;">
+            <h3>I Yleiskuva</h3>
+            <strong>Tilanne:</strong><br>
+            {{ event.op_situation |safe }}
+        </div>
+        {% endif %}
+
+        {% if event.op_spec_friedlies %}
+        <div class="textboxes">
+            <strong>Omat joukot:</strong><br>
+            {{ event.op_spec_friedlies |safe }}
+        </div>
+        {% endif %}
+
+        {% if event.op_spec_enemies %}
+        <div class="textboxes">
+            <strong>Vihollisjoukot:</strong><br>
+            {{ event.op_spec_enemies |safe }}
+        </div>
+        {% endif %}
+
+        {% if event.op_spec_civilians %}
+        <div class="textboxes">
+            <strong>Siviilit:</strong><br>
+            {{ event.op_spec_civilians |safe }}
+        </div>
+        {% endif %}
+
+        {% if event.op_spec_roe %}
+        <div class="textboxes">
+            <strong>Tulenavaussäännöt:</strong><br>
+            {{ event.op_spec_roe |safe }}
+        </div>
+        {% endif %}
+
+        {% if event.op_spec_assets %}
+        <div class="textboxes">
+            <strong>Kalusto:</strong><br>
+            {{ event.op_spec_assets |safe }}
+        </div>
+        {% endif %}
+
+        {% if event.op_spec_datetime %}
+        <div class="textboxes">
+            <strong>Tehtävän aloitusaika:</strong><br>
+            {{ event.op_spec_datetime |date:'d.m.Y H:i' }}
+        </div>
+        {% endif %}
+
+        {% if event.op_spec_weather %}
+        <div class="textboxes">
+            <strong>Säätiedotus:</strong><br>
+            {{ event.op_spec_weather |safe }}
+        </div>
+        {% endif %}
+
+        {% if event.op_spec_mission %}
+        <div class="rulesbox" style="width:80%; min-height:auto;">
+            <h3>II Tehtävä</h3>
+            {{ event.op_spec_mission |safe }}
+        </div>
+        {% endif %}
+
+        {% if event.op_spec_proceeding %}
+        <div class="rulesbox" style="width:80%; min-height:auto;">
+            <h3>III Toteutus</h3>
+            {{ event.op_spec_proceeding |safe }}
+        </div>
+        {% endif %}
+
+        {% if event.op_spec_supports %}
+        <div class="rulesbox" style="width:80%; min-height:auto;">
+            <h3>IV Huolto / Tuki</h3>
+            {{ event.op_spec_supports |safe }}
+        </div>
+        {% endif %}
+
+        {% if event.op_spec_comms %}
+        <div class="rulesbox" style="width:80%; min-height:auto;">
+            <h3>V Johtaminen & Viestitoiminta</h3>
+            {{ event.op_spec_comms |safe }}
+        </div>
+        {% endif %}
+
+    </div>
+
+
+
+    <div class="container">
+        <div class="rulesbox" style="width:80%; min-height:auto;">
+            <h2 id="ilmoittautuminen">ILMOITTAUTUMINEN</h2>
+            Minimipelaajamäärä {{ event.op_minplayers }} + Zeukset (Tarkistus {{ event.op_slottingcheckdatetime |date:'d.m.Y H:i' }})<br>
+            Maksimipelaajamäärä {{ event.op_maxplayers }} + Zeukset<br>
+            Slottaus aukeaa {{ event.op_slottingstartdatetime |date:'d.m.Y H:i' }} -- {{ slots_active }}
+        </div>
+
+
+        <div class="rulesbox" style="width:80%; min-height:auto;">
+{% for box in roleboxes %}
+<div class="slotboxes">
+    <table class="slotbox">
+        <tr><th>{{ box.name }}</th></tr>
+        <tr><td><table border="0" width="100%">
+            <tr><th>Rooli</th><th>Kutsu</th><th>Pelaaja</th></tr>
+            {% for slot in slots %}
+            <tr><th>{{ slot.all }}</th><th>{{ slot.nick }}</th><td>{{ slot.member }}</td></tr>
+            {% endfor %}
+        </table></td>
+        </tr>
+    </table>
+</div>
+{% endfor %}
+<!--
+
+        <div class="slotboxes">
+            <table class="slotbox">
+                <tr><th>ZEUS</th></tr>
+                <tr><td><table border="0" width="100%">
+                    <tr><th>Rooli</th><th>Kutsu</th><th>Pelaaja</th></tr>
+                    <tr><th>Zeus</th><th>Starboard 1</th><td>Kommarinip (Bagel Ops)</td></tr>
+                    <tr><th>Zeus</th><th>Starboard 2</th><td>Cassu (Bagel Ops)</td></tr>
+                </table></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="slotboxes">
+            <table class="slotbox">
+                <tr><th>JOUKKUEENJOHTO</th></tr>
+                <tr><td><table border="0" width="100%">
+                    <tr><th>Rooli</th><th>Kutsu</th><th>Pelaaja</th></tr>
+                    <tr><th>Joukkueenjohtaja</th><th>Alpha 10</th><td>Abba (Ruojakkeet)</td></tr>
+                    <tr><th>Joukkueen VJ</th><th>Alpha 15</th><td>Sienihemmo (Gorillat)</td></tr>
+                    <tr><th>CAS</th><th>Alpha 8</th><td></td></tr>
+                </table></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="slotboxes">
+            <table class="slotbox">
+                <tr><th>HUOLTO</th></tr>
+                <tr><td><table border="0" width="100%">
+                    <tr><th>Rooli</th><th>Kutsu</th><th>Pelaaja</th></tr>
+                    <tr><th>Ryhmänjohtaja</th><th>Hotel 10</th><td>MakaZan (DCSF)</td></tr>
+                    <tr><th>Huoltomies</th><th></th><td>Ryge (DCSF)</td></tr>
+                    <tr><th>Huoltomies</th><th></th><td>rendurok (DCSF)</td></tr>
+                </table></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="slotboxes">
+            <table class="slotbox">
+                <tr><th>LÄÄKINTÄ</th></tr>
+                <tr><td><table border="0" width="100%">
+                    <tr><th>Rooli</th><th>Kutsu</th><th>Pelaaja</th></tr>
+                    <tr><th>Ryhmänjohtaja</th><th>Pulse 10</th><td>Ezk1 (Gorillat)</td></tr>
+                    <tr><th>Lääkintämies</th><th></th><td>Junnu80 (VRESK)</td></tr>
+                    <tr><th>Lääkintämies</th><th></th><td>Erbo (Gorillat)</td></tr>
+                </table></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="slotboxes">
+            <table class="slotbox">
+                <tr><th>PIONEERIT</th></tr>
+                <tr><td><table border="0" width="100%">
+                    <tr><th>Rooli</th><th>Kutsu</th><th>Pelaaja</th></tr>
+                    <tr><th>Ryhmänjohtaja</th><th>TNT 10</th><td>Lape (VRESK)</td></tr>
+                    <tr><th>Raivaaja</th><th></th><td>Fragile (VRESK)</td></tr>
+                    <tr><th>Raivaaja</th><th></th><td>Makkara (VRESK)</td></tr>
+                    <tr><th>Liekinheitinmies</th><th></th><td>BeNelly (VRESK)</td></tr>
+                    <tr><th>Liekinheitinmies</th><th></th><td>Fasu (VRESK)</td></tr>
+                </table></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="slotboxes">
+            <table class="slotbox">
+                <tr><th>PILOTIT</th></tr>
+                <tr><td><table border="0" width="100%">
+                    <tr><th>Rooli</th><th>Kutsu</th><th>Pelaaja</th></tr>
+                    <tr><th>Pilotti 1</th><th>Angel 1</th><td>Nuufa (Bagel Ops)</td></tr>
+                    <tr><th>Pilotti 2</th><th>Angel 2</th><td>Tuukk (Bagel Ops)</td></tr>
+                </table></td>
+                </tr>
+            </table>
+        </div>
+        </div>
+        <div class="rulesbox" style="width:80%; min-height:auto;">
+        <div class="slotboxes">
+            <table class="slotbox">
+                <tr><th>1. RYHMÄ</th></tr>
+                <tr><td><table border="0" width="100%">
+                    <tr><th>Rooli</th><th>Kutsu</th><th>Pelaaja</th></tr>
+                    <tr><th>Ryhmänjohtaja</th><th>Alpha 1</th><td>Jaakkim (Ruojakkeet)</td></tr>
+                    <tr><th>Partionjohtaja</th><th></th><td>LT_Yoka (VRESK)</td></tr>
+                    <tr><th>KK-ampuja</th><th></th><td>matia (Bagel Ops)</td></tr>
+                    <tr><th>Krenatööri</th><th></th><td>Karvajalat (Bagel Ops)</td></tr>
+                    <tr><th>Taistelupelastaja</th><th></th><td>BigJohn (DCSF)</td></tr>
+                    <tr><th>PST-mies</th><th></th><td>juppedus (Bagel Ops)</td></tr>
+                    <tr><th>KK-avustaja</th><th></th><td>Kowalski (Bagel Ops)</td></tr>
+                    <tr><th>PST-avustaja</th><th></th><td></td></tr>
+                </table></td></tr>
+            </table>
+        </div>
+
+        <div class="slotboxes">
+            <table class="slotbox">
+                <tr><th>2. RYHMÄ</th></tr>
+                <tr><td><table border="0" width="100%">
+                    <tr><th>Rooli</th><th>Kutsu</th><th>Pelaaja</th></tr>
+                    <tr><th>Ryhmänjohtaja</th><th>Alpha 2</th><td>Matti (Motti)</td></tr>
+                    <tr><th>Partionjohtaja</th><th></th><td></td></tr>
+                    <tr><th>KK-ampuja</th><th></th><td></td></tr>
+                    <tr><th>Krenatööri</th><th></th><td></td></tr>
+                    <tr><th>Taistelupelastaja</th><th></th><td></td></tr>
+                    <tr><th>PST-mies</th><th></th><td></td></tr>
+                    <tr><th>KK-avustaja</th><th></th><td>Groovy Gremlin (Motti)</td></tr>
+                    <tr><th>PST-avustaja</th><th></th><td></td></tr>
+                </table></td></tr>
+            </table>
+        </div>
+
+        <div class="slotboxes">
+            <table class="slotbox" border="1">
+                <tr><th>3. RYHMÄ</th></tr>
+                <tr><td><table border="0" width="100%">
+                    <tr><th>Rooli</th><th>Kutsu</th><th>Pelaaja</th></tr>
+                    <tr><th>Ryhmänjohtaja</th><th>Alpha 3</th><td>Antihilator (Nörtikatti)</td></tr>
+                    <tr><th>Partionjohtaja</th><th></th><td></td></tr>
+                    <tr><th>KK-ampuja</th><th></th><td></td></tr>
+                    <tr><th>Krenatööri</th><th></th><td></td></tr>
+                    <tr><th>Taistelupelastaja</th><th></th><td></td></tr>
+                    <tr><th>PST-mies</th><th></th><td></td></tr>
+                    <tr><th>KK-avustaja</th><th></th><td></td></tr>
+                    <tr><th>PST-avustaja</th><th></th><td>Hopaness (Ruojakkeet)</td></tr>
+                </table></td></tr>
+            </table>
+        </div>
+
+        <div class="slotboxes">
+            <table class="slotbox" border="1">
+                <tr><th>4. RYHMÄ</th></tr>
+                <tr><td><table border="0" width="100%">
+                    <tr><th>Rooli</th><th>Kutsu</th><th>Pelaaja</th></tr>
+                    <tr><th>Ryhmänjohtaja</th><th>Alpha 4</th><td></td></tr>
+                    <tr><th>Partionjohtaja</th><th></th><td></td></tr>
+                    <tr><th>KK-ampuja</th><th></th><td></td></tr>
+                    <tr><th>Krenatööri</th><th></th><td></td></tr>
+                    <tr><th>Taistelupelastaja</th><th></th><td></td></tr>
+                    <tr><th>PST-mies</th><th></th><td></td></tr>
+                    <tr><th>KK-avustaja</th><th></th><td></td></tr>
+                    <tr><th>PST-avustaja</th><th></th><td></td></tr>
+                </table></td></tr>
+            </table>
+        </div>
+
+        <div class="slotboxes">
+            <table class="slotbox" border="1">
+                <tr><th>5. RYHMÄ (varalla)</th></tr>
+                <tr><td><table border="0" width="100%">
+                    <tr><th>Rooli</th><th>Kutsu</th><th>Pelaaja</th></tr>
+                    <tr><th>Ryhmänjohtaja</th><th>Alpha 5</th><td></td></tr>
+                    <tr><th>Partionjohtaja</th><th></th><td></td></tr>
+                    <tr><th>KK-ampuja</th><th></th><td></td></tr>
+                    <tr><th>Krenatööri</th><th></th><td></td></tr>
+                    <tr><th>Taistelupelastaja</th><th></th><td></td></tr>
+                    <tr><th>PST-mies</th><th></th><td></td></tr>
+                    <tr><th>KK-avustaja</th><th></th><td></td></tr>
+                    <tr><th>PST-avustaja</th><th></th><td></td></tr>
+                </table></td></tr>
+            </table>
+        </div>
+        </div>
+    -->
+
+    </div>
+
+
+
+    <div class="container">
+        <div class="rulesbox" style="width:80%; min-height:auto;">
+            <h2 id="kuvat">KUVAT</h2>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
