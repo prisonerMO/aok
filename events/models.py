@@ -19,7 +19,7 @@ class OpRole(models.Model):
     player =                models.ForeignKey(Member, on_delete=models.DO_NOTHING, verbose_name="Pelaaja")
 
     def __str__(self):
-        return f"{self.rolename + " " + self.radionick}"
+        return str(self.rolename) + " " + str(self.radionick)
 
 class OpRoleBox(models.Model):
     """ Main level of unit "boxes". 
@@ -74,38 +74,32 @@ class Event(models.Model):
 
     def op_startdate(self):
         if(self.op_startdatetime):
-            return f"{self.op_startdatetime.strftime("%d.%m.%Y")}"
+            return str(self.op_startdatetime.strftime("%d.%m.%Y"))
         return ""
 
     def op_starttime(self):
         if(self.op_startdatetime):
-            return f"{self.op_startdatetime.strftime("%H:%M")}"
+            return str(self.op_startdatetime.strftime("%H:%M"))
         return ""
 
     def op_endtime(self):
         if(self.op_startdatetime and self.op_duration):
-            return f"{ (self.op_startdatetime + timedelta(
-                        hours=int(self.op_duration.strftime("%H")),
-                        minutes=int(self.op_duration.strftime("%M"))
-                    )).strftime("%H:%M")}"
+            return str((self.op_startdatetime + timedelta(hours=int(self.op_duration.strftime("%H")),minutes=int(self.op_duration.strftime("%M")))).strftime("%H:%M"))
         return ""
 
     def planstarttime(self):
         if(self.plandatetime):
-            return f"{self.plandatetime.strftime("%H:%M")}"
+            return str(self.plandatetime.strftime("%H:%M"))
         return ""
 
     def planendtime(self):
         if(self.plandatetime and self.planduration):
-            return f"{ (self.plandatetime + timedelta(
-                        hours=int(self.planduration.strftime("%H")),
-                        minutes=int(self.planduration.strftime("%M"))
-                    )).strftime("%H:%M")}"
+            return str((self.plandatetime + timedelta(hours=int(self.planduration.strftime("%H")),minutes=int(self.planduration.strftime("%M")))).strftime("%H:%M"))
         return ""
 
     def orderend(self):
         if(self.op_startdatetime):
-            return f"{ (self.op_startdatetime + timedelta(minutes=10)).strftime("%H:%M")}"
+            return str((self.op_startdatetime + timedelta(minutes=10)).strftime("%H:%M"))
         return ""
 
 

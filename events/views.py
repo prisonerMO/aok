@@ -31,8 +31,8 @@ class Slots(View):
             slots_active = " SLOTTAUS AUKI "
 
         roleboxes = event.op_rolebox.all()
-        rolebox = roleboxes.filter(pk=event.id).get()
-        slots = rolebox.name
+        rolebox = roleboxes.filter(pk=id).get()
+        slots = rolebox.oprole.all()
 
         context = {
             'id': id,
