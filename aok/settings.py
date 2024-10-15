@@ -81,9 +81,47 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+    'django': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'OPTIONS': {
+            "options": "-c search_path=django"
+            },
+        'NAME': 'aok',
+        'USER': 'svc_django',
+        'PASSWORD': 'djangopwd',
+        'HOST': 'localhost',
+        'PORT': 5432,
+    },
+    'aok_reader': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'OPTIONS': {
+            "options": "-c search_path=aok"
+            },
+        'NAME': 'aok',
+        'USER': 'svc_aok',
+        'PASSWORD': 'aokpwd',
+        'HOST': 'localhost',
+        'PORT': 5432,
+    },
+    'aok_writer': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'OPTIONS': {
+            "options": "-c search_path=aok"
+            },
+        'NAME': 'aok',
+        'USER': 'svc_aok',
+        'PASSWORD': 'aokpwd',
+        'HOST': 'localhost',
+        'PORT': 5432,
+    },
+
 }
 
+DATABASE_ROUTERS = [
+    "aok.routers.AuthRouter", 
+    "aok.routers.AppRouter",
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

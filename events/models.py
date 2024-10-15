@@ -3,16 +3,27 @@ from communities.models import Community, Member
 from datetime import timedelta
 
 
-class Radio(models.Model):
+
+class BaseModel(models.Model):
+    """
+    For future abstraction.
+    """
+    class Meta:
+        abstract=True # specify this model as an Abstract Model
+        app_label = 'aok'
+
+
+
+class Radio(BaseModel):
     name =                  models.CharField(max_length=40)
 
     def __str__(self):
         return f"{self.name}"
 
-#class MemberPerRole(models.Model):
+#class MemberPerRole(BaseModel):
 #    player =                models.ForeignKey(Member, on_delete=models.DO_NOTHING, verbose_name = "Pelaaja")
 
-class OpRole(models.Model):
+class OpRole(BaseModel):
     rolename =              models.CharField(max_length=40, verbose_name="Rooli")
     radio =                 models.ForeignKey(Radio, on_delete=models.DO_NOTHING, verbose_name = "Radio")
     radionick =             models.CharField(max_length=20, blank=True, verbose_name="Radiokutsu")
@@ -21,7 +32,9 @@ class OpRole(models.Model):
     def __str__(self):
         return str(self.rolename) + " " + str(self.radionick)
 
-class OpRoleBox(models.Model):
+
+
+class OpRoleBox(BaseModel):
     """ Main level of unit "boxes". 
     There can be multiple SL's in multiple units... """
     name =                  models.CharField(max_length=40, verbose_name="Yksikkö")
@@ -32,8 +45,7 @@ class OpRoleBox(models.Model):
 
 
 
-
-class Event(models.Model):
+class Event(BaseModel):
     """ Event data. Uses models: community.Community, OpRoleBox    """
     published =             models.BooleanField(verbose_name="Julkaistu")
     op_name =               models.CharField(max_length=100, blank=True, null=True, verbose_name="Operaation nimi")

@@ -15,7 +15,17 @@ RANK_CLASSES = {
 
 
 
-class Rank(models.Model):
+class BaseModel(models.Model):
+    """
+    For future abstraction.
+    """
+    class Meta:
+        abstract=True # specify this model as an Abstract Model
+        app_label = 'aok'
+
+
+
+class Rank(BaseModel):
     """ Ranks for members. Used by class Members """
     rankname = models.CharField(max_length=30, blank=True, null=True, verbose_name="Arvo")
     rankappr = models.CharField(max_length=20, blank=True, null=True, verbose_name="Lyhenne")
@@ -26,7 +36,7 @@ class Rank(models.Model):
 
 
 
-class VRank(models.Model):
+class VRank(BaseModel):
     """ Virtual ranks for Members. Used by class Members """
     rankname = models.CharField(max_length=30, blank=True, null=True, verbose_name="Nimike")
     rankappr = models.CharField(max_length=20, blank=True, null=True, verbose_name="Lyhenne")
@@ -37,7 +47,7 @@ class VRank(models.Model):
 
 
 
-class Community(models.Model):
+class Community(BaseModel):
     """ Communities. Used by class Members """
     name = models.CharField(max_length=30, verbose_name="Yhteisö")
     shortname = models.CharField(max_length=30, blank=True, null=True, verbose_name="Lyhyt nimi")
@@ -48,7 +58,7 @@ class Community(models.Model):
 
 
 
-class Member(models.Model):
+class Member(BaseModel):
     """ Members. Uses classes Rank, VRank, Community """
     nickname = models.CharField(max_length=30, verbose_name="Nimimerkki")
     firstname = models.CharField(max_length=30, blank=True, null=True, verbose_name="Etunimi")
@@ -60,6 +70,5 @@ class Member(models.Model):
 
     def __str__(self):
         return f"{self.nickname}"
-
 
 
