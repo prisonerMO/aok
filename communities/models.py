@@ -1,10 +1,12 @@
+"""
+Importing:
+models base from django
+aok app model base from aok.common
+"""
 from django.db import models
+from aok.common import BaseModelAOK
 
-
-"""
-Rank levels for members
-Used by classes Rank and VRank
-"""
+#Rank levels for members. Used by classes Rank and VRank.
 RANK_CLASSES = {
     20: 'Alokas',
     40: 'Miehistö',
@@ -15,39 +17,29 @@ RANK_CLASSES = {
 
 
 
-class BaseModel(models.Model):
-    """
-    For future abstraction.
-    """
-    class Meta:
-        abstract=True # specify this model as an Abstract Model
-        app_label = 'aok'
-
-
-
-class Rank(BaseModel):
+class Rank(BaseModelAOK):
     """ Ranks for members. Used by class Members """
     rankname = models.CharField(max_length=30, blank=True, null=True, verbose_name="Arvo")
     rankappr = models.CharField(max_length=20, blank=True, null=True, verbose_name="Lyhenne")
     rankvalue = models.IntegerField(choices=RANK_CLASSES, blank=True, verbose_name="Luokka")
-    
+
     def __str__(self):
         return f"{self.rankappr}"
 
 
 
-class VRank(BaseModel):
+class VRank(BaseModelAOK):
     """ Virtual ranks for Members. Used by class Members """
     rankname = models.CharField(max_length=30, blank=True, null=True, verbose_name="Nimike")
     rankappr = models.CharField(max_length=20, blank=True, null=True, verbose_name="Lyhenne")
     rankvalue = models.IntegerField(choices=RANK_CLASSES, blank=True, verbose_name="Luokka")
-    
+
     def __str__(self):
         return f"{self.rankappr}"
 
 
 
-class Community(BaseModel):
+class Community(BaseModelAOK):
     """ Communities. Used by class Members """
     name = models.CharField(max_length=30, verbose_name="Yhteisö")
     shortname = models.CharField(max_length=30, blank=True, null=True, verbose_name="Lyhyt nimi")
@@ -58,7 +50,7 @@ class Community(BaseModel):
 
 
 
-class Member(BaseModel):
+class Member(BaseModelAOK):
     """ Members. Uses classes Rank, VRank, Community """
     nickname = models.CharField(max_length=30, verbose_name="Nimimerkki")
     firstname = models.CharField(max_length=30, blank=True, null=True, verbose_name="Etunimi")
@@ -70,5 +62,3 @@ class Member(BaseModel):
 
     def __str__(self):
         return f"{self.nickname}"
-
-

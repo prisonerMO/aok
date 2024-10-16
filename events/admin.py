@@ -1,9 +1,17 @@
+"""
+Importing:
+admin base from Django contrib module
+models from events
+"""
 from django.contrib import admin
 from events.models import OpRole, OpRoleBox, Event, Radio
 
 
 
 class EventAdmin(admin.ModelAdmin):
+    """
+    Admin for Event model
+    """
     list_display = [
         'op_name', 'op_organizer', 'op_map', 'op_startdatetime', 'op_duration', 'op_slotopendatetime',
         'plandatetime', 'planduration', 'op_modpreset',
@@ -13,8 +21,11 @@ class EventAdmin(admin.ModelAdmin):
         'op_spec_friedlies', 'op_spec_enemies', 'op_spec_civilians', 'op_spec_roe', 'op_spec_assets',
         'op_spec_mission', 'op_spec_proceeding', 'op_spec_supports', 'op_spec_comms',
     ]
-    
+
     def op_rolebox(self, obj):
+        """
+        Returns all roles as a string separated with comma
+        """
         return ", ".join([c.shortname for c in obj.op_rolebox.all()])
 
 admin.site.register(Event, EventAdmin)
@@ -22,6 +33,9 @@ admin.site.register(Event, EventAdmin)
 
 
 class OpRoleAdmin(admin.ModelAdmin):
+    """
+    Admin for Op Role model
+    """
     list_display = [ 'rolename', ]
 
 admin.site.register(OpRole, OpRoleAdmin)
@@ -29,6 +43,9 @@ admin.site.register(OpRole, OpRoleAdmin)
 
 
 class OpRoleBoxAdmin(admin.ModelAdmin):
+    """
+    Admin for Op Role Box class
+    """
     list_display = [ 'name', ]
 
 admin.site.register(OpRoleBox, OpRoleBoxAdmin)
@@ -36,8 +53,9 @@ admin.site.register(OpRoleBox, OpRoleBoxAdmin)
 
 
 class RadioAdmin(admin.ModelAdmin):
+    """
+    Admin for Radio class
+    """
     list_display = [ 'name', ]
 
 admin.site.register(Radio, RadioAdmin)
-
-

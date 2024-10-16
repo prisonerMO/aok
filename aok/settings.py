@@ -79,10 +79,10 @@ WSGI_APPLICATION = 'aok.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
-    'django': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    },
+#    'django': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'OPTIONS': {
             "options": "-c search_path=django"
@@ -115,12 +115,22 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': 5432,
     },
+    'aok_migrator': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'OPTIONS': {
+            "options": "-c search_path=aok"
+            },
+        'NAME': 'aok',
+        'USER': 'svc_django',
+        'PASSWORD': 'djangopwd',
+        'HOST': 'localhost',
+        'PORT': 5432,
+    },
 
 }
 
 DATABASE_ROUTERS = [
-    "aok.routers.AuthRouter", 
-    "aok.routers.AppRouter",
+    "aok.routers.Router", 
 ]
 
 # Password validation
