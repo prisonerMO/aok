@@ -26,6 +26,9 @@ class Rank(BaseModelAOK):
     def __str__(self):
         return f"{self.rankappr}"
 
+    class Meta:
+        db_table = 'aok.rank'
+
 
 
 class VRank(BaseModelAOK):
@@ -37,6 +40,9 @@ class VRank(BaseModelAOK):
     def __str__(self):
         return f"{self.rankappr}"
 
+    class Meta:
+        db_table = 'aok.vrank'
+
 
 
 class Community(BaseModelAOK):
@@ -47,6 +53,9 @@ class Community(BaseModelAOK):
 
     def __str__(self):
         return f"{self.name}"
+
+    class Meta:
+        db_table = 'aok.community'
 
 
 
@@ -62,3 +71,6 @@ class Member(BaseModelAOK):
 
     def __str__(self):
         return f"{self.nickname}"
+
+    class Meta:
+        db_table =  'aok.member'

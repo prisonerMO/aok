@@ -10,7 +10,7 @@ class Router:
     """
 
     route_django_labels = [ "admin", "auth", "contenttypes", "sessions", ]
-    route_app_labels = [ "aok", ]
+    route_app_labels = [ "aok", "communities", "communities", "news" ]
 
     def db_for_read(self, model, **hints):
         """
