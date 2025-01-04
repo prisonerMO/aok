@@ -82,6 +82,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
+}
+""" These are commented out for simplier use with sqlite3 db.
     'django': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'OPTIONS': {
@@ -126,8 +128,8 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': 5432,
     },
-
 }
+"""
 
 DATABASE_ROUTERS = [
     "aok.routers.Router", 

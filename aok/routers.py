@@ -2,13 +2,13 @@
 No need to import modules
 """
 
-
 class Router:
     """
     A router to control all database operations on models in the
     auth and contenttypes applications.
     """
 
+''' These are commented out for simplier use with sqlite3 db.
     route_django_labels = [ "admin", "auth", "contenttypes", "sessions", ]
     route_app_labels = [ "aok", "communities", "communities", "news" ]
 
@@ -57,3 +57,4 @@ class Router:
         if app_label in self.route_app_labels:
             return db == "aok_migrator"
         return None
+'''
